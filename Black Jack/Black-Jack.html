@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Black Jack</title>
+    <meta name="author" content="Adam Szumacher & Maks Turkowski" />
+    <meta name="description" content="Black Jack game, Gra w Black Jacka" />
+    <meta name="keywords" content="Black Jack, black jack"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <script>
+        function graj()
+        {
+            
+            var token1=5, token2=10, token3=25, token4=100; // żetony
+            var card2=2, card3=3, card4=4, card5=5, card6=6, card7=7, card8=8, card9=9, card10=10, walet=10, dama=10, krol=10, as1=1, as2=11; // karty
+            var cards = new Array(card2, card3, card4, card5, card6, card7, card8, card9, card10, walet, dama, krol, as1, as2);
+            var wallet=1000, bet=0, yosum=0, opsum=0; //bet - tyle ile obstawiłeś, yosum - suma twoich kart, opsum - suma kart bota
+            
+            var rand = Math.floor(Math.random() *cards.length);
+            var rand1 = Math.floor(Math.random() *cards.length);
+            
+            document.getElementById("wynik").innerHTML=cards[rand]+cards[rand1];
+            
+            var botrand = Math.floor(Math.random() *cards.length);
+            
+            document.getElementById("botwynik").innerHTML=cards[botrand];
+            
+            if(document.getElementsByTagName("BODY")[0].style.backgroundColor == "red");
+                {
+                    document.getElementsByTagName("BODY")[0].style.backgroundColor = "white";
+                    document.getElementById("wer").innerHTML = "";
+                }
+            
+        }
+        
+        function dobieranie()
+        {
+            var card2=2, card3=3, card4=4, card5=5, card6=6, card7=7, card8=8, card9=9, card10=10, walet=10, dama=10, krol=10, as1=1, as2=11; // karty
+            var cards = new Array(card2, card3, card4, card5, card6, card7, card8, card9, card10, walet, dama, krol, as1, as2);
+            var rand2 = Math.floor(Math.random() *cards.length);
+            
+            var a= parseInt(document.getElementById("wynik").innerHTML);
+            document.getElementById("wynik").innerHTML=a+cards[rand2];
+            
+            var youwinik = parseInt(document.getElementById("wynik").innerHTML);
+            
+            if(youwinik > 21)
+                {
+                    document.getElementById("wer").innerHTML="Przegrałeś";
+                    document.getElementsByTagName("BODY")[0].style.backgroundColor = "red";
+                }
+            
+        }
+        
+        function stand()
+        {
+            var card2=2, card3=3, card4=4, card5=5, card6=6, card7=7, card8=8, card9=9, card10=10, walet=10, dama=10, krol=10, as1=1, as2=11; // karty
+            var cards = new Array(card2, card3, card4, card5, card6, card7, card8, card9, card10, walet, dama, krol, as1, as2);
+            
+            var rand3 = Math.floor(Math.random() *cards.length);
+            
+            var yowynik = parseInt(document.getElementById("wynik").innerHTML); 
+            var krwynik = parseInt(document.getElementById("botwynik").innerHTML);
+            krwynik += cards[rand3];
+            
+            while(krwynik < 17)
+                {
+                    krwynik += cards[Math.floor(Math.random() *cards.length)];
+                }
+            
+            document.getElementById("botwynik").innerHTML=krwynik;
+            
+            if(yowynik > krwynik || krwynik > 21)
+                {
+                    if(yowynik == 21)
+                        {
+                            document.getElementById("wer").innerHTML="Wygrałeś!<br>BLACK JACK";
+                    document.getElementsByTagName("BODY")[0].style.backgroundColor = "green";
+                        }
+                    else
+                        {
+                            document.getElementById("wer").innerHTML="Wygrałeś!";
+                    document.getElementsByTagName("BODY")[0].style.backgroundColor = "green";
+                        }
+                }
+            else if(yowynik == krwynik)
+                {
+                    document.getElementById("wer").innerHTML="Remis";
+                    document.getElementsByTagName("BODY")[0].style.backgroundColor = "yellow";
+                }
+            else
+            {
+                if(krwynik == 21)
+                    {
+                        document.getElementById("wer").innerHTML="Przegrałeś<br>BLACK JACK";
+                    document.getElementsByTagName("BODY")[0].style.backgroundColor = "red";
+                    }
+                else
+                    {
+                        document.getElementById("wer").innerHTML="Przegrałeś";
+                    document.getElementsByTagName("BODY")[0].style.backgroundColor = "red";
+                    }
+            }
+        }
+            
+    </script>
+    
+    <button onclick="graj()">Graj</button>
+    <button onclick="dobieranie()">Dobierz</button>
+    <button onclick="stand()">Stand</button>
+    <div id="wynik"></div>
+    <br><br><br>
+    <div style="float: left">Krupier:</div><div id="botwynik"></div>
+    <div id="wer" style="font-size: 48px; margin-left: 550px"></div>
+</body>
+</html>
